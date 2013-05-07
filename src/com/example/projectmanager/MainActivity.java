@@ -1,5 +1,6 @@
 package com.example.projectmanager;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,8 +39,13 @@ public class MainActivity extends ListActivity {
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		// TODO Auto-generated method stub
 		// super.onListItemClick(l, v, position, id);
+		
 		Project project = (Project) l.getItemAtPosition(position);
-
+		
+		Intent intent = new Intent(this, ProjectDetails.class);
+		intent.putExtra("Project", (Serializable)project);
+	    startActivity(intent);
+		/*
 		Context context = getApplicationContext();
 		CharSequence text = project.getDescription();;
 		int duration = Toast.LENGTH_SHORT;
@@ -50,6 +56,7 @@ public class MainActivity extends ListActivity {
 		datasource.deleteProject(project);
 		arry.remove(project);
 		datasource.close();
+		*/
 		
 	}
 

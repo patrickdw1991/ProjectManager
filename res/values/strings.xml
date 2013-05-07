@@ -6,5 +6,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_add_project">AddProject</string>
     <string name="title_activity_project_details">ProjectDetails</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_change_project">ChangeProject</string>
 
 </resources>

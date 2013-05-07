@@ -1,6 +1,8 @@
 package com.example.projectmanager;
 
-public class Project {
+import java.io.Serializable;
+
+public class Project implements Serializable {
 	  private long id;
 	  private String project;
 	  private String description;

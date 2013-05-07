@@ -30,6 +30,10 @@
             android:name="com.example.projectmanager.ProjectDetails"
             android:label="@string/title_activity_project_details" >
         </activity>
+        <activity
+            android:name="com.example.projectmanager.ChangeProject"
+            android:label="@string/title_activity_change_project" >
+        </activity>
     </application>
 
 </manifest>

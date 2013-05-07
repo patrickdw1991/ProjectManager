@@ -35,13 +35,14 @@ public class AddProject extends Activity {
             	}
             }
         });
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.add_project, menu);
-		return true;
+        
+        final Button button2 = (Button) findViewById(R.id.button2);
+        button2.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                finish();
+                return;
+            	            }
+        });
 	}
 
 }
