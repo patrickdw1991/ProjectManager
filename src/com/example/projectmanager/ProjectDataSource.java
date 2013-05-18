@@ -1,13 +1,12 @@
 package com.example.projectmanager;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+
+import java.util.ArrayList;
 
 public class ProjectDataSource {
 	// Database fields
@@ -50,6 +49,14 @@ public class ProjectDataSource {
 	        + " = " + id, null);
 	  }
 
+    public void changeProject(Project project, String name, String description){
+        long id = project.getId();
+        ContentValues cv = new ContentValues();
+        cv.put(DictionaryOpenHelper.COLUMN_NAME,name);
+        cv.put(DictionaryOpenHelper.COLUMN_DESCRIPTION,description);
+        database.update(DictionaryOpenHelper.TABLE_PROJECTS,cv,DictionaryOpenHelper.COLUMN_ID+" = "+id,null);
+}
+
 	  public ArrayList<Project> getAllProjects() {
 	    ArrayList<Project> projects = new ArrayList<Project>();
 
@@ -66,6 +73,17 @@ public class ProjectDataSource {
 	    cursor.close();
 	    return projects;
 	  }
+
+    public Project getOneProject(Project projectOld){
+        long id = projectOld.getId();
+        Cursor cursor = database.query(DictionaryOpenHelper.TABLE_PROJECTS,
+                allColumns, DictionaryOpenHelper.COLUMN_ID+" = "+id, null, null, null, null);
+
+        cursor.moveToFirst();
+            Project project = cursorToProject(cursor);
+        cursor.close();
+        return project;
+    }
 
 	  private Project cursorToProject(Cursor cursor) {
 	    Project project = new Project();
