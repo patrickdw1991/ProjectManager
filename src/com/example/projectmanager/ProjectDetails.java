@@ -2,8 +2,11 @@ package com.example.projectmanager;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -31,28 +34,8 @@ public class ProjectDetails extends Activity {
 		System.out.println(project.getDescription());
 		t1 = (TextView)findViewById(R.id.textView1);
 		t1.setText(project.getDescription());
-
-		final Button button1 = (Button) findViewById(R.id.button1);
-        button1.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-            	datasource.open();
-            	datasource.deleteProject(project);
-            	datasource.close();
-                finish();
-                return;
-            	            }
-        });
         intent = new Intent(this, ChangeProject.class);
-        final Button button2 = (Button) findViewById(R.id.button2);
-        button2.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-            	
-        		intent.putExtra("Project", (Serializable)project);
-        	    startActivity(intent);
-                return;
-            	            }
-        });
-        
+
 	}
 
     @Override
@@ -66,9 +49,47 @@ public class ProjectDetails extends Activity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem menuItem)
+    public boolean onOptionsItemSelected(MenuItem item)
     {
-        finish();
+        switch (item.getItemId()) {
+            case R.id.edit:
+                intent.putExtra("Project", (Serializable)project);
+                startActivity(intent);
+                return true;
+
+            case R.id.discard:
+                new AlertDialog.Builder(this)
+                        .setIcon(R.drawable.pm)
+                        .setTitle("Delete Project")
+                        .setMessage("Are you sure you want to delete this project?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener()
+                        {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                datasource.open();
+                                datasource.deleteProject(project);
+                                datasource.close();
+                                finish();
+                            }
+
+                        })
+                        .setNegativeButton("No", null)
+                        .show();
+
+                return true;
+
+            default:
+                finish();
+                return true;
+        }
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.project_details, menu);
         return true;
     }
+
 }

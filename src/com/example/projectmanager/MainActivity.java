@@ -8,35 +8,37 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MainActivity extends ListActivity {
 
-	ArrayAdapter<Project> arry = null;
 	List<Project> values = new ArrayList<Project>();
 	private ProjectDataSource datasource;
+    ProjectAdapter adapterz = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		// setContentView(R.layout.activity_main);
 		datasource = new ProjectDataSource(this);
-		datasource.open();
+	    datasource.open();
 		values = datasource.getAllProjects();
-		// Binding resources Array to ListAdapter
-		arry = new ArrayAdapter<Project>(this, R.layout.list_item2, R.id.label,
-				values);
-		this.setListAdapter(arry);
 		datasource.close();
+        adapterz = new ProjectAdapter(this,values);
+        this.setListAdapter(adapterz);
+
 	}
 
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
-		Project project = (Project) l.getItemAtPosition(position);
-		
+        datasource.open();
+        Project project = values.get(position);
+		datasource.close();
 		Intent intent = new Intent(this, ProjectDetails.class);
 		intent.putExtra("Project", (Serializable)project);
 	    startActivity(intent);
@@ -57,9 +59,7 @@ public class MainActivity extends ListActivity {
 			datasource.open();
 			Intent intent = new Intent(this, AddProject.class);
 		    startActivity(intent);
-            overridePendingTransition(0,0);
-			changingAllTheStuff(datasource.getAllProjects());
-			datasource.close();
+            			datasource.close();
 			return true;
 
 		default:
@@ -69,17 +69,16 @@ public class MainActivity extends ListActivity {
 
 	@Override
 	protected void onResume() {
+        super.onResume();
 		datasource.open();
 		changingAllTheStuff(datasource.getAllProjects());
 		datasource.close();
-		super.onResume();
+
 	}
 
-	
-	public void changingAllTheStuff(ArrayList<Project> items){
-		values.clear();
-		values.addAll(items);
-		arry.notifyDataSetChanged();
-	}
-
+    public void changingAllTheStuff(ArrayList<Project> items){
+        values.clear();
+        values.addAll(items);
+        adapterz.notifyDataSetChanged();
+    }
 }

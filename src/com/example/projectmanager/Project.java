@@ -6,6 +6,8 @@ public class Project implements Serializable {
 	  private long id;
 	  private String project;
 	  private String description;
+      private String sDescription;
+      private long date;
 
 	  public String getDescription() {
 		return description;
@@ -36,4 +38,20 @@ public class Project implements Serializable {
 	  public String toString() {
 	    return project;
 	  }
-	} 
+
+    public String getsDescription() {
+        return sDescription;
+    }
+
+    public void setsDescription(String sDescription) {
+        this.sDescription = sDescription;
+    }
+
+    public long getDate() {
+        return date;
+    }
+
+    public void setDate(long date) {
+        this.date = date;
+    }
+}

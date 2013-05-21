@@ -13,7 +13,7 @@ public class ProjectDataSource {
 	  private SQLiteDatabase database;
 	  private DictionaryOpenHelper dbHelper;
 	  private String[] allColumns = { DictionaryOpenHelper.COLUMN_ID,
-	      DictionaryOpenHelper.COLUMN_NAME, DictionaryOpenHelper.COLUMN_DESCRIPTION };
+	      DictionaryOpenHelper.COLUMN_NAME, DictionaryOpenHelper.COLUMN_DESCRIPTION, DictionaryOpenHelper.COLUMN_SDESCRIPTION, DictionaryOpenHelper.COLUMN_DATE };
 
 	  public ProjectDataSource(Context context) {
 	    dbHelper = new DictionaryOpenHelper(context);
@@ -27,10 +27,12 @@ public class ProjectDataSource {
 	    dbHelper.close();
 	  }
 
-	  public Project createProject(String project, String description) {
+	  public Project createProject(String project, String description, String sDescription, long date) {
 	    ContentValues values = new ContentValues();
 	    values.put(DictionaryOpenHelper.COLUMN_NAME, project);
 	    values.put(DictionaryOpenHelper.COLUMN_DESCRIPTION, description);
+        values.put(DictionaryOpenHelper.COLUMN_SDESCRIPTION, sDescription);
+        values.put(DictionaryOpenHelper.COLUMN_DATE, date);
 	    long insertId = database.insert(DictionaryOpenHelper.TABLE_PROJECTS, null,
 	        values);
 	    Cursor cursor = database.query(DictionaryOpenHelper.TABLE_PROJECTS,
@@ -49,11 +51,13 @@ public class ProjectDataSource {
 	        + " = " + id, null);
 	  }
 
-    public void changeProject(Project project, String name, String description){
+    public void changeProject(Project project, String name, String description, String sDescription, long date){
         long id = project.getId();
         ContentValues cv = new ContentValues();
         cv.put(DictionaryOpenHelper.COLUMN_NAME,name);
         cv.put(DictionaryOpenHelper.COLUMN_DESCRIPTION,description);
+        cv.put(DictionaryOpenHelper.COLUMN_SDESCRIPTION, sDescription);
+        cv.put(DictionaryOpenHelper.COLUMN_DATE, date);
         database.update(DictionaryOpenHelper.TABLE_PROJECTS,cv,DictionaryOpenHelper.COLUMN_ID+" = "+id,null);
 }
 
@@ -90,6 +94,9 @@ public class ProjectDataSource {
 	    project.setId(cursor.getLong(0));
 	    project.setProject(cursor.getString(1));
 	    project.setDescription(cursor.getString(2));
+        project.setsDescription(cursor.getString(3));
+        project.setDate(cursor.getLong(4));
 	    return project;
 	  }
-	} 
+
+}
