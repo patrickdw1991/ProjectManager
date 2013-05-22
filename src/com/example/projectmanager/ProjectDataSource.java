@@ -12,8 +12,8 @@ public class ProjectDataSource {
 	// Database fields
 	  private SQLiteDatabase database;
 	  private DictionaryOpenHelper dbHelper;
-	  private String[] allColumns = { DictionaryOpenHelper.COLUMN_ID,
-	      DictionaryOpenHelper.COLUMN_NAME, DictionaryOpenHelper.COLUMN_DESCRIPTION, DictionaryOpenHelper.COLUMN_SDESCRIPTION, DictionaryOpenHelper.COLUMN_DATE };
+	  private String[] allColumns = { DictionaryOpenHelper.project.COLUMN_ID,
+	      DictionaryOpenHelper.project.COLUMN_NAME, DictionaryOpenHelper.project.COLUMN_DESCRIPTION, DictionaryOpenHelper.project.COLUMN_SDESCRIPTION, DictionaryOpenHelper.project.COLUMN_DATE };
 
 	  public ProjectDataSource(Context context) {
 	    dbHelper = new DictionaryOpenHelper(context);
@@ -29,14 +29,14 @@ public class ProjectDataSource {
 
 	  public Project createProject(String project, String description, String sDescription, long date) {
 	    ContentValues values = new ContentValues();
-	    values.put(DictionaryOpenHelper.COLUMN_NAME, project);
-	    values.put(DictionaryOpenHelper.COLUMN_DESCRIPTION, description);
-        values.put(DictionaryOpenHelper.COLUMN_SDESCRIPTION, sDescription);
-        values.put(DictionaryOpenHelper.COLUMN_DATE, date);
-	    long insertId = database.insert(DictionaryOpenHelper.TABLE_PROJECTS, null,
+	    values.put(DictionaryOpenHelper.project.COLUMN_NAME, project);
+	    values.put(DictionaryOpenHelper.project.COLUMN_DESCRIPTION, description);
+        values.put(DictionaryOpenHelper.project.COLUMN_SDESCRIPTION, sDescription);
+        values.put(DictionaryOpenHelper.project.COLUMN_DATE, date);
+	    long insertId = database.insert(DictionaryOpenHelper.project.TABLE_PROJECTS, null,
 	        values);
-	    Cursor cursor = database.query(DictionaryOpenHelper.TABLE_PROJECTS,
-	        allColumns, DictionaryOpenHelper.COLUMN_ID + " = " + insertId, null,
+	    Cursor cursor = database.query(DictionaryOpenHelper.project.TABLE_PROJECTS,
+	        allColumns, DictionaryOpenHelper.project.COLUMN_ID + " = " + insertId, null,
 	        null, null, null);
 	    cursor.moveToFirst();
 	    Project newProject = cursorToProject(cursor);
@@ -47,24 +47,24 @@ public class ProjectDataSource {
 	  public void deleteProject(Project project) {
 	    long id = project.getId();
 	    System.out.println("Project deleted with id: " + id);
-	    database.delete(DictionaryOpenHelper.TABLE_PROJECTS, DictionaryOpenHelper.COLUMN_ID
+	    database.delete(DictionaryOpenHelper.project.TABLE_PROJECTS, DictionaryOpenHelper.project.COLUMN_ID
 	        + " = " + id, null);
 	  }
 
     public void changeProject(Project project, String name, String description, String sDescription, long date){
         long id = project.getId();
         ContentValues cv = new ContentValues();
-        cv.put(DictionaryOpenHelper.COLUMN_NAME,name);
-        cv.put(DictionaryOpenHelper.COLUMN_DESCRIPTION,description);
-        cv.put(DictionaryOpenHelper.COLUMN_SDESCRIPTION, sDescription);
-        cv.put(DictionaryOpenHelper.COLUMN_DATE, date);
-        database.update(DictionaryOpenHelper.TABLE_PROJECTS,cv,DictionaryOpenHelper.COLUMN_ID+" = "+id,null);
+        cv.put(DictionaryOpenHelper.project.COLUMN_NAME,name);
+        cv.put(DictionaryOpenHelper.project.COLUMN_DESCRIPTION,description);
+        cv.put(DictionaryOpenHelper.project.COLUMN_SDESCRIPTION, sDescription);
+        cv.put(DictionaryOpenHelper.project.COLUMN_DATE, date);
+        database.update(DictionaryOpenHelper.project.TABLE_PROJECTS,cv,DictionaryOpenHelper.project.COLUMN_ID+" = "+id,null);
 }
 
 	  public ArrayList<Project> getAllProjects() {
 	    ArrayList<Project> projects = new ArrayList<Project>();
 
-	    Cursor cursor = database.query(DictionaryOpenHelper.TABLE_PROJECTS,
+	    Cursor cursor = database.query(DictionaryOpenHelper.project.TABLE_PROJECTS,
 	        allColumns, null, null, null, null, null);
 
 	    cursor.moveToFirst();
@@ -80,8 +80,8 @@ public class ProjectDataSource {
 
     public Project getOneProject(Project projectOld){
         long id = projectOld.getId();
-        Cursor cursor = database.query(DictionaryOpenHelper.TABLE_PROJECTS,
-                allColumns, DictionaryOpenHelper.COLUMN_ID+" = "+id, null, null, null, null);
+        Cursor cursor = database.query(DictionaryOpenHelper.project.TABLE_PROJECTS,
+                allColumns, DictionaryOpenHelper.project.COLUMN_ID+" = "+id, null, null, null, null);
 
         cursor.moveToFirst();
             Project project = cursorToProject(cursor);
