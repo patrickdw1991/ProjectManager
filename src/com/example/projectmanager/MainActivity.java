@@ -1,84 +1,81 @@
 package com.example.projectmanager;
 
-import android.app.ListActivity;
+import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.ListFragment;
+import android.support.v4.view.ViewPager;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
-public class MainActivity extends ListActivity {
+public class MainActivity extends FragmentActivity {
 
-	List<Project> values = new ArrayList<Project>();
-	private ProjectDataSource datasource;
-    ProjectAdapter adapterz = null;
+    private ProjectDataSource datasource;
+    private ViewPager mViewPager;
+    private TabsAdapter mTabsAdapter;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		datasource = new ProjectDataSource(this);
-	    datasource.open();
-		values = datasource.getAllProjects();
-		datasource.close();
-        adapterz = new ProjectAdapter(this,values);
-        this.setListAdapter(adapterz);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        datasource = new ProjectDataSource(this);
+        mViewPager = new ViewPager(this);
+        mViewPager.setId(R.id.pager);
+        setContentView(mViewPager);
 
-	}
+        final ActionBar bar = getActionBar();
+        bar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
-	@Override
-	protected void onListItemClick(ListView l, View v, int position, long id) {
-        datasource.open();
-        Project project = values.get(position);
-		datasource.close();
-		Intent intent = new Intent(this, ProjectDetails.class);
-		intent.putExtra("Project", (Serializable)project);
-	    startActivity(intent);
-	}
+        mTabsAdapter = new TabsAdapter(this, mViewPager);
+        mTabsAdapter.addTab(bar.newTab().setText("Fragment 1"), MainActivity2.class, null);
+        mTabsAdapter.addTab(bar.newTab().setText("Fragment 2"), MainActivity3.class, null);
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle item selection
-		switch (item.getItemId()) {
-		case R.id.add:
-			datasource.open();
-			Intent intent = new Intent(this, AddProject.class);
-		    startActivity(intent);
-            			datasource.close();
-			return true;
-
-		default:
-			return super.onOptionsItemSelected(item);
-		}
-	}
-
-	@Override
-	protected void onResume() {
-        super.onResume();
-		datasource.open();
-		changingAllTheStuff(datasource.getAllProjects());
-		datasource.close();
-
-	}
-
-    public void changingAllTheStuff(ArrayList<Project> items){
-        values.clear();
-        values.addAll(items);
-        adapterz.notifyDataSetChanged();
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.add:
+                datasource.open();
+                Intent intent = new Intent(this, AddProject.class);
+                startActivity(intent);
+                datasource.close();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MainActivity2 fragment =
+                (MainActivity2) getSupportFragmentManager().findFragmentByTag(
+                        "android:switcher:"+R.id.pager+":0");
+        if(fragment != null)  // could be null if not instantiated yet
+        {
+            if(fragment.getView() != null)
+            {
+                // no need to call if fragment's onDestroyView()
+                //has since been called.
+                fragment.changingAllTheStuff(this); // do what updates are required
+            }
+        }
+
+
+    }
+
+
 }

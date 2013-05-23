@@ -1,5 +1,6 @@
 package com.example.projectmanager;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -26,6 +27,8 @@ public class AddProject extends Activity {
 		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_add_project2);
+        ActionBar actionBar = getActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
     public void datePicker(View view){

@@ -9,13 +9,13 @@ public class DictionaryOpenHelper extends SQLiteOpenHelper {
 
 
     private static final String DATABASE_NAME = "projects.db";
-    private static final int DATABASE_VERSION = 5;
+    private static final int DATABASE_VERSION = 7;
 
     // Database creation sql statement
     private static final String DATABASE_CREATE_PROJECTS = "create table "
             + project.TABLE_PROJECTS + "(" + project.COLUMN_ID
             + " integer primary key autoincrement, " + project.COLUMN_NAME
-            + " text not null, " + project.COLUMN_DESCRIPTION + " text not null, " + project.COLUMN_SDESCRIPTION + " text not null, " + project.COLUMN_DATE + " bigint not null);";
+            + " text not null, " + project.COLUMN_DESCRIPTION + " text, " + project.COLUMN_SDESCRIPTION + " text, " + project.COLUMN_DATE + " bigint not null);";
 
     private static final String DATABASE_CREATE_PERSONS = "create table "
             + person.TABLE_PERSONS + "(" + person.COLUMN_ID
@@ -30,9 +30,22 @@ public class DictionaryOpenHelper extends SQLiteOpenHelper {
     private static final String DATABASE_CREATE_MILESTONES = "create table "
             + milestones.TABLE_MILESTONES + "(" + milestones.COLUMN_ID
             + " integer primary key autoincrement, " + milestones.COLUMN_NAME
-            + " text not null, " + milestones.COLUMN_DATE + " bigint not null, " + milestones.COLUMN_PROJECTID + " int not null, " + person.COLUMN_PHONE + " text, " + person.COLUMN_SPECIALIZATION + " text);";
+            + " text not null, " + milestones.COLUMN_DATE + " bigint not null, " + milestones.COLUMN_PROJECTID + " int not null);";
 
-    //add more sql database creates
+    private static final String DATABASE_CREATE_TEAM = "create table "
+            + team.TABLE_TEAM + "(" + team.COLUMN_ID
+            + " integer primary key autoincrement, " + team.COLUMN_NAME
+            + " text not null);";
+
+    private static final String DATABASE_CREATE_TASKGROUP = "create table "
+            + taskgroup.TABLE_TASKGROUP + "(" + taskgroup.COLUMN_ID
+            + " integer primary key autoincrement, " + taskgroup.COLUMN_NAME
+            + " text not null, " + taskgroup.COLUMN_ESTTIME + " int not null, " + taskgroup.COLUMN_PROJECTID + " int not null, " + taskgroup.COLUMN_STARTDATE + " bigint not null);";
+
+    private static final String DATABASE_CREATE_PERSONTEAM = "create table "
+            + personteam.TABLE_PERSONTEAM + "(" + personteam.COLUMN_ID
+            + " integer primary key autoincrement, " + personteam.COLUMN_PERSONID
+            + " int not null, " + personteam.COLUMN_TEAMID + " int not null);";
 
     public DictionaryOpenHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -44,6 +57,9 @@ public class DictionaryOpenHelper extends SQLiteOpenHelper {
         database.execSQL(DATABASE_CREATE_PERSONS);
         database.execSQL(DATABASE_CREATE_TASKS);
         database.execSQL(DATABASE_CREATE_MILESTONES);
+        database.execSQL(DATABASE_CREATE_TEAM);
+        database.execSQL(DATABASE_CREATE_TASKGROUP);
+        database.execSQL(DATABASE_CREATE_PERSONTEAM);
     }
 
     @Override

@@ -49,7 +49,7 @@ public class ChangeProject extends Activity {
 		EditText et2 = (EditText)findViewById(R.id.editText2);
         EditText et3 = (EditText)findViewById(R.id.editText3);
         actionBar = getActionBar();
-        actionBar.setHomeButtonEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
         datasource.open();
 		et1.setText(datasource.getOneProject(project).getProject());
 		et2.setText(datasource.getOneProject(project).getDescription());

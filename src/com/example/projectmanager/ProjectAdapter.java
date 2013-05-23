@@ -64,4 +64,6 @@ public class ProjectAdapter extends ArrayAdapter {
         TextView date;
     }
 
+
+
 }

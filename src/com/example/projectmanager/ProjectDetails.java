@@ -29,7 +29,7 @@ public class ProjectDetails extends Activity {
 		project = (Project)getIntent().getSerializableExtra("Project");
 		setContentView(R.layout.activity_project_details);
         actionBar = getActionBar();
-        actionBar.setHomeButtonEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle(project.getProject());
 		System.out.println(project.getDescription());
 		t1 = (TextView)findViewById(R.id.textView1);
