@@ -1,10 +1,11 @@
-package com.example.projectmanager;
+package com.example.projectmanager.sql;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import com.example.projectmanager.objects.Project;
 
 import java.util.ArrayList;
 
