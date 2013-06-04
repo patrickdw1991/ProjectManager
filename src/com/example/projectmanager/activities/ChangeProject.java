@@ -11,9 +11,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import com.example.projectmanager.objects.Person;
+import com.example.projectmanager.objects.Project;
 import com.example.projectmanager.R;
-import com.example.projectmanager.sql.PersonDataSource;
+import com.example.projectmanager.sql.ProjectDataSource;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -36,14 +36,14 @@ public class ChangeProject extends Activity {
             b1.setText(getDate(dateim,"dd/MM/yyyy"));
         }
     };
-	private PersonDataSource datasource;
-	private Person project;
+	private ProjectDataSource datasource;
+	private Project project;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		datasource = new PersonDataSource(this);
-		project = (Person)getIntent().getSerializableExtra("Project");
+		datasource = new ProjectDataSource(this);
+		project = (Project)getIntent().getSerializableExtra("Project");
 		setContentView(R.layout.activity_add_project2);
 		EditText et1 = (EditText)findViewById(R.id.editText1);
 		EditText et2 = (EditText)findViewById(R.id.editText2);

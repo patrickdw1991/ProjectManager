@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import com.example.projectmanager.R;
-import com.example.projectmanager.sql.PersonDataSource;
+import com.example.projectmanager.sql.ProjectDataSource;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -20,7 +20,7 @@ import java.util.Calendar;
 
 public class AddProject extends Activity {
 
-	PersonDataSource datasource = new PersonDataSource(this);
+	ProjectDataSource datasource = new ProjectDataSource(this);
     Calendar dateTime=Calendar.getInstance();
     DateFormat formatDateTime= DateFormat.getDateInstance();
 	

@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-import com.example.projectmanager.objects.Project;
+import com.example.projectmanager.objects.Person;
 import com.example.projectmanager.R;
 
 import java.util.List;
@@ -16,12 +16,12 @@ import static com.example.projectmanager.activities.ChangeProject.getDate;
 /**
  * Created by Patrick on 18-5-13.
  */
-public class ProjectAdapter extends ArrayAdapter {
+public class PersonAdapter extends ArrayAdapter {
 
     Activity activity;
     List data;
 
-    public ProjectAdapter(Activity activity, List objects) {
+    public PersonAdapter(Activity activity, List objects) {
         super(activity, R.layout.list_item2 , objects);
         this.activity = activity;
         this.data=objects;
@@ -29,14 +29,14 @@ public class ProjectAdapter extends ArrayAdapter {
 
     public View getView(int position, View convertView, ViewGroup parent) {
         View row = convertView;
-        ProjectHolder holder = null;
+        personHolder holder = null;
 
         if(row == null)
         {
             LayoutInflater inflater = activity.getLayoutInflater();
             row = inflater.inflate(R.layout.list_item2, null);
 
-            holder = new ProjectHolder();
+            holder = new personHolder();
             holder.label = (TextView)row.findViewById(R.id.label);
             holder.sDescription = (TextView)row.findViewById(R.id.artist);
             holder.date = (TextView)row.findViewById(R.id.duration);
@@ -45,19 +45,19 @@ public class ProjectAdapter extends ArrayAdapter {
         }
         else
         {
-            holder = (ProjectHolder)row.getTag();
+            holder = (personHolder)row.getTag();
         }
 
-        Project projectItem = (Project)data.get(position);
+        Person personItem = (Person)data.get(position);
 
-        holder.label.setText(projectItem.getProject());
-        holder.sDescription.setText(projectItem.getsDescription());
-        holder.date.setText(getDate(projectItem.getDate(), "dd/MM/yyyy"));
+        holder.label.setText(personItem.getName());
+        holder.sDescription.setText(personItem.getEmail());
+        //holder.date.setText(getDate(projectItem.getDate(), "dd/MM/yyyy"));
 
         return row;
     }
 
-    static class ProjectHolder
+    static class personHolder
     {
         TextView label;
         TextView sDescription;
