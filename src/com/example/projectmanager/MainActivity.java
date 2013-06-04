@@ -30,8 +30,8 @@ public class MainActivity extends FragmentActivity {
         bar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
         mTabsAdapter = new TabsAdapter(this, mViewPager);
-        mTabsAdapter.addTab(bar.newTab().setText("Fragment 1"), MainActivity2.class, null);
-        mTabsAdapter.addTab(bar.newTab().setText("Fragment 2"), MainActivity3.class, null);
+        mTabsAdapter.addTab(bar.newTab().setText("Projects"), MainActivity2.class, null);
+        mTabsAdapter.addTab(bar.newTab().setText("Persons"), MainActivity3.class, null);
 
     }
 
