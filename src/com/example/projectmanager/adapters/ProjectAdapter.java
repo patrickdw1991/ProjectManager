@@ -1,16 +1,17 @@
-package com.example.projectmanager;
+package com.example.projectmanager.adapters;
 
 import android.app.Activity;
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+import com.example.projectmanager.objects.Person;
+import com.example.projectmanager.R;
 
 import java.util.List;
 
-import static com.example.projectmanager.ChangeProject.getDate;
+import static com.example.projectmanager.activities.ChangeProject.getDate;
 
 /**
  * Created by Patrick on 18-5-13.
@@ -48,7 +49,7 @@ public class ProjectAdapter extends ArrayAdapter {
             holder = (ProjectHolder)row.getTag();
         }
 
-        Project projectItem = (Project)data.get(position);
+        Person projectItem = (Person)data.get(position);
 
         holder.label.setText(projectItem.getProject());
         holder.sDescription.setText(projectItem.getsDescription());

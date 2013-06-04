@@ -1,4 +1,4 @@
-package com.example.projectmanager;
+package com.example.projectmanager.activities;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import com.example.projectmanager.R;
+import com.example.projectmanager.sql.PersonDataSource;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -18,7 +20,7 @@ import java.util.Calendar;
 
 public class AddProject extends Activity {
 
-	ProjectDataSource datasource = new ProjectDataSource(this);
+	PersonDataSource datasource = new PersonDataSource(this);
     Calendar dateTime=Calendar.getInstance();
     DateFormat formatDateTime= DateFormat.getDateInstance();
 	

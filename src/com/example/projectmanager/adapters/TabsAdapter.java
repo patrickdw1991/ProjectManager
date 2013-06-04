@@ -1,4 +1,4 @@
-package com.example.projectmanager;
+package com.example.projectmanager.adapters;
 
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;

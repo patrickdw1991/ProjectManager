@@ -1,27 +1,30 @@
-package com.example.projectmanager;
+package com.example.projectmanager.activities;
 
 import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.ListFragment;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import com.example.projectmanager.fragments.MainActivity2;
+import com.example.projectmanager.fragments.MainActivity3;
+import com.example.projectmanager.R;
+import com.example.projectmanager.adapters.TabsAdapter;
+import com.example.projectmanager.sql.PersonDataSource;
 
 
 public class MainActivity extends FragmentActivity {
 
-    private ProjectDataSource datasource;
+    private PersonDataSource datasource;
     private ViewPager mViewPager;
     private TabsAdapter mTabsAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        datasource = new ProjectDataSource(this);
+        datasource = new PersonDataSource(this);
         mViewPager = new ViewPager(this);
         mViewPager.setId(R.id.pager);
         setContentView(mViewPager);

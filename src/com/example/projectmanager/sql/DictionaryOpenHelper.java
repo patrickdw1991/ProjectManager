@@ -1,4 +1,4 @@
-package com.example.projectmanager;
+package com.example.projectmanager.sql;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

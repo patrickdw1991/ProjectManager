@@ -6,7 +6,7 @@
 
     <fragment
             android:id="@+id/country_fragment"
-            android:name="com.example.projectmanager.MainActivity2"
+            android:name="com.example.projectmanager.fragments.MainActivity2"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             />

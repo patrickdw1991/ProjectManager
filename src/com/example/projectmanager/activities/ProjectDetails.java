@@ -1,4 +1,4 @@
-package com.example.projectmanager;
+package com.example.projectmanager.activities;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -8,16 +8,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
+import com.example.projectmanager.objects.Person;
+import com.example.projectmanager.R;
+import com.example.projectmanager.sql.PersonDataSource;
 
 import java.io.Serializable;
 
 public class ProjectDetails extends Activity {
 	
-	private ProjectDataSource datasource;
-	private Project project;
+	private PersonDataSource datasource;
+	private Person project;
 	private Intent intent;
     TextView t1 = null;
     ActionBar actionBar = null;
@@ -25,8 +26,8 @@ public class ProjectDetails extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		datasource = new ProjectDataSource(this);
-		project = (Project)getIntent().getSerializableExtra("Project");
+		datasource = new PersonDataSource(this);
+		project = (Person)getIntent().getSerializableExtra("Project");
 		setContentView(R.layout.activity_project_details);
         actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
